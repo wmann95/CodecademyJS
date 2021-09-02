@@ -61,6 +61,40 @@ let _ = {
 
   drop(arr, num){
     return arr.slice((num ? num : 1), arr.length);
+  },
+
+  dropWhile(arr, func){
+    let n = 0;
+    for(let i = 0; i < arr.length; i++){
+      if(func(arr[i], i, arr) === true){
+        n++;
+      }
+      else{
+        break;
+      }
+    }
+
+    return this.drop(arr, n);
+  },
+
+  chunk(arr, size){
+    let s = size ? size : 1;
+    let chunkCount = Math.ceil(arr.length / s);
+    let output = [];
+    if(s === 1) {
+      output.push(arr);
+      return output;
+    }
+    for(let i = 0; i < chunkCount; i++){
+      let temp = [];
+      if(i === chunkCount - 1){
+        temp = arr.slice(i * s, arr.length);
+      }else{
+        temp = arr.slice(i * s, (i + 1) * s);
+      }
+      output.push(temp);
+    }
+    return output;
   }
 };
 
